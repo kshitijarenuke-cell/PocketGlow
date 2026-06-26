@@ -99,7 +99,8 @@ function Home() {
               key={c.id}
               to="/shop"
               search={{ category: c.id }}
-              className="group relative overflow-hidden rounded-3xl bg-nude"
+              className="group relative overflow-hidden rounded-3xl"
+              style={{ backgroundColor: "var(--card)" }}
             >
               <div className="transition-transform duration-700 group-hover:scale-105">
                 <Placeholder
@@ -179,7 +180,8 @@ function Home() {
         </p>
         <form
           onSubmit={handleSubscribe}
-          className="mt-10 mx-auto flex max-w-md border-b border-ink/30 focus-within:border-ink"
+          className="mt-10 mx-auto flex max-w-md border-b focus-within:border-foreground"
+          style={{ borderColor: "var(--border)" }}
         >
           <input
             type="email"
@@ -193,6 +195,7 @@ function Home() {
             type="submit"
             disabled={submitting}
             className="text-[10px] tracking-[0.3em] uppercase hover:opacity-60 disabled:opacity-50 cursor-pointer"
+            style={{ color: "var(--foreground)" }}
           >
             {submitting ? "Subscribed" : "Subscribe"}
           </button>

@@ -21,7 +21,7 @@ function LoginPage() {
 
   useEffect(() => {
     const checkLoggedIn = async () => {
-      const token = typeof window !== 'undefined' ? localStorage.getItem("token") : null;
+      const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
       if (token) {
         try {
           const res = await authAPI.getProfile();
@@ -84,6 +84,7 @@ function LoginPage() {
     }
   };
 
+  // Logged-in profile view
   if (user) {
     return (
       <SiteLayout>
@@ -91,20 +92,32 @@ function LoginPage() {
           <div className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground mb-3">
             Account
           </div>
-          <h1 className="font-display text-5xl mb-6">Hello, {user.name}</h1>
-          <div className="bg-beige rounded-3xl p-8 mb-8 text-left text-sm space-y-3 text-ink/80">
+          <h1 className="font-display text-5xl mb-6" style={{ color: "var(--foreground)" }}>
+            Hello, {user.name}
+          </h1>
+          <div
+            className="rounded-3xl p-8 mb-8 text-left text-sm space-y-3"
+            style={{ backgroundColor: "var(--card)" }}
+          >
             <div>
-              <span className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground block">Email</span>
-              {user.email}
+              <span className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground block">
+                Email
+              </span>
+              <span style={{ color: "var(--foreground)" }}>{user.email}</span>
             </div>
             <div>
-              <span className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground block">Role</span>
-              <span className="capitalize">{user.role}</span>
+              <span className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground block">
+                Role
+              </span>
+              <span className="capitalize" style={{ color: "var(--foreground)" }}>
+                {user.role}
+              </span>
             </div>
           </div>
           <button
             onClick={handleLogout}
-            className="w-full rounded-full bg-ink text-cream text-[11px] tracking-[0.3em] uppercase py-4 hover:bg-ink/90 transition-colors cursor-pointer"
+            className="w-full rounded-full text-[11px] tracking-[0.3em] uppercase py-4 hover:opacity-90 transition-opacity cursor-pointer"
+            style={{ backgroundColor: "var(--foreground)", color: "var(--background)" }}
           >
             Sign out
           </button>
@@ -120,12 +133,16 @@ function LoginPage() {
           <div className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground mb-3">
             Account
           </div>
-          <h1 className="font-display text-5xl">
+          <h1 className="font-display text-5xl" style={{ color: "var(--foreground)" }}>
             {mode === "signin" ? "Welcome back" : "Join PocketGlow Essentials"}
           </h1>
         </div>
 
-        <div className="grid grid-cols-2 gap-1 mb-8 bg-beige rounded-full p-1 text-[11px] tracking-[0.25em] uppercase">
+        {/* Mode toggle */}
+        <div
+          className="grid grid-cols-2 gap-1 mb-8 rounded-full p-1 text-[11px] tracking-[0.25em] uppercase"
+          style={{ backgroundColor: "var(--muted)" }}
+        >
           {(["signin", "signup"] as const).map((m) => (
             <button
               key={m}
@@ -133,16 +150,19 @@ function LoginPage() {
                 setMode(m);
                 setError(null);
               }}
-              className={cn(
-                "py-2.5 rounded-full transition-colors cursor-pointer",
-                mode === m ? "bg-ink text-cream" : "text-ink/70 hover:text-ink",
-              )}
+              className="py-2.5 rounded-full transition-colors cursor-pointer"
+              style={
+                mode === m
+                  ? { backgroundColor: "var(--foreground)", color: "var(--background)" }
+                  : { color: "var(--muted-foreground)" }
+              }
             >
               {m === "signin" ? "Sign in" : "Create"}
             </button>
           ))}
         </div>
 
+        {/* Error message */}
         {error && (
           <div className="mb-6 text-center text-xs text-red-600 bg-red-50 dark:bg-red-950/20 dark:text-red-400 p-3 rounded-2xl">
             {error}
@@ -180,7 +200,8 @@ function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-full bg-ink text-cream text-[11px] tracking-[0.3em] uppercase py-4 hover:bg-ink/90 transition-colors disabled:opacity-50 cursor-pointer"
+            className="w-full rounded-full text-[11px] tracking-[0.3em] uppercase py-4 hover:opacity-90 transition-opacity disabled:opacity-50 cursor-pointer"
+            style={{ backgroundColor: "var(--foreground)", color: "var(--background)" }}
           >
             {loading ? "Processing..." : mode === "signin" ? "Sign in" : "Create account"}
           </button>
@@ -188,7 +209,11 @@ function LoginPage() {
 
         <p className="mt-8 text-center text-xs text-muted-foreground">
           {mode === "signin" ? "Forgot password? " : "By creating an account you agree to our terms."}
-          {mode === "signin" && <span className="underline cursor-pointer">Reset it</span>}
+          {mode === "signin" && (
+            <span className="underline cursor-pointer" style={{ color: "var(--foreground)" }}>
+              Reset it
+            </span>
+          )}
         </p>
       </section>
     </SiteLayout>
@@ -206,7 +231,11 @@ function Field({
       </span>
       <input
         {...props}
-        className="mt-2 w-full bg-transparent border-b border-ink/30 focus:border-ink py-2.5 outline-none text-sm text-foreground"
+        className="mt-2 w-full bg-transparent py-2.5 outline-none text-sm"
+        style={{
+          color: "var(--foreground)",
+          borderBottom: "1px solid var(--border)",
+        }}
       />
     </label>
   );

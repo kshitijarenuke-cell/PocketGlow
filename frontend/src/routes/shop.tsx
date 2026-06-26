@@ -22,7 +22,7 @@ function ShopPage() {
   const { category } = Route.useSearch();
   const navigate = Route.useNavigate();
   const [sort, setSort] = useState<SortKey>("featured");
-  
+
   const [dbProducts, setDbProducts] = useState<typeof products>(products);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -66,19 +66,30 @@ function ShopPage() {
           <div className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground mb-3">
             All essentials
           </div>
-          <h1 className="font-display text-5xl md:text-6xl">Shop</h1>
+          <h1 className="font-display text-5xl md:text-6xl" style={{ color: "var(--foreground)" }}>
+            Shop
+          </h1>
         </div>
 
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-12 border-y border-border py-5">
+        <div
+          className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-12 border-y py-5"
+          style={{ borderColor: "var(--border)" }}
+        >
+          {/* Category filter pills */}
           <div className="flex flex-wrap items-center gap-2 text-[11px] tracking-[0.25em] uppercase">
             <button
               onClick={() => setCategory(undefined)}
               className={cn(
                 "rounded-full px-4 py-1.5 border transition-colors",
                 !category
-                  ? "bg-[#616F84] text-white border-[#616F84]"
-                  : "bg-transparent text-[#685C54] border-[#DCD1C7] hover:bg-[#F4EFEA]",
+                  ? "border-foreground text-background"
+                  : "border-border hover:opacity-80",
               )}
+              style={
+                !category
+                  ? { backgroundColor: "var(--foreground)", color: "var(--background)" }
+                  : { backgroundColor: "transparent", color: "var(--foreground)", borderColor: "var(--border)" }
+              }
             >
               All
             </button>
@@ -89,21 +100,35 @@ function ShopPage() {
                 className={cn(
                   "rounded-full px-4 py-1.5 border transition-colors",
                   category === c.id
-                    ? "bg-[#616F84] text-white border-[#616F84]"
-                    : "bg-transparent text-[#685C54] border-[#DCD1C7] hover:bg-[#F4EFEA]",
+                    ? ""
+                    : "hover:opacity-80",
                 )}
+                style={
+                  category === c.id
+                    ? { backgroundColor: "var(--foreground)", color: "var(--background)", borderColor: "var(--foreground)" }
+                    : { backgroundColor: "transparent", color: "var(--foreground)", borderColor: "var(--border)" }
+                }
               >
                 {c.label}
               </button>
             ))}
           </div>
 
-          <label className="flex items-center gap-3 text-[11px] tracking-[0.25em] uppercase">
+          {/* Sort */}
+          <label
+            className="flex items-center gap-3 text-[11px] tracking-[0.25em] uppercase"
+            style={{ color: "var(--foreground)" }}
+          >
             Sort
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value as SortKey)}
-              className="bg-transparent border-b border-ink/30 py-1 outline-none text-xs tracking-normal"
+              className="py-1 outline-none text-xs tracking-normal bg-transparent border-b"
+              style={{
+                color: "var(--foreground)",
+                borderColor: "var(--border)",
+                backgroundColor: "var(--background)",
+              }}
             >
               <option value="featured">Featured</option>
               <option value="price-asc">Price: Low to high</option>

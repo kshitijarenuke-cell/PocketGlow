@@ -19,7 +19,7 @@ export const Route = createFileRoute("/product/$id")({
     } catch (err) {
       console.error("Failed to fetch product details from backend, falling back:", err);
     }
-    
+
     const product = getProduct(params.id);
     if (!product) throw notFound();
     return { product };
@@ -27,9 +27,15 @@ export const Route = createFileRoute("/product/$id")({
   notFoundComponent: () => (
     <SiteLayout>
       <div className="mx-auto max-w-3xl px-6 py-32 text-center">
-        <h1 className="font-display text-5xl mb-4">Not found</h1>
+        <h1 className="font-display text-5xl mb-4" style={{ color: "var(--foreground)" }}>
+          Not found
+        </h1>
         <p className="text-muted-foreground">This product doesn't exist.</p>
-        <Link to="/shop" className="mt-8 inline-block text-[11px] tracking-[0.3em] uppercase underline">
+        <Link
+          to="/shop"
+          className="mt-8 inline-block text-[11px] tracking-[0.3em] uppercase underline"
+          style={{ color: "var(--foreground)" }}
+        >
           Back to shop
         </Link>
       </div>
@@ -38,8 +44,16 @@ export const Route = createFileRoute("/product/$id")({
   errorComponent: ({ reset }) => (
     <SiteLayout>
       <div className="mx-auto max-w-3xl px-6 py-32 text-center">
-        <h1 className="font-display text-3xl mb-4">Something went wrong</h1>
-        <button onClick={reset} className="text-[11px] tracking-[0.3em] uppercase underline">Try again</button>
+        <h1 className="font-display text-3xl mb-4" style={{ color: "var(--foreground)" }}>
+          Something went wrong
+        </h1>
+        <button
+          onClick={reset}
+          className="text-[11px] tracking-[0.3em] uppercase underline"
+          style={{ color: "var(--foreground)" }}
+        >
+          Try again
+        </button>
       </div>
     </SiteLayout>
   ),
@@ -59,7 +73,10 @@ function ProductDetail() {
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
           {/* Gallery */}
           <div>
-            <div className="rounded-3xl overflow-hidden bg-beige">
+            <div
+              className="rounded-3xl overflow-hidden"
+              style={{ backgroundColor: "var(--card)" }}
+            >
               <Placeholder
                 src={product.images[active]?.src}
                 alt={product.images[active]?.alt}
@@ -75,7 +92,7 @@ function ProductDetail() {
                   onClick={() => setActive(i)}
                   className={cn(
                     "overflow-hidden rounded-xl border transition-all",
-                    active === i ? "border-ink" : "border-border hover:border-ink/50",
+                    active === i ? "border-foreground" : "border-border hover:border-foreground/50",
                   )}
                 >
                   <Placeholder
@@ -95,48 +112,74 @@ function ProductDetail() {
             <div className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground">
               PocketGlow Essentials
             </div>
-            <h1 className="mt-2 font-display text-4xl md:text-5xl">{product.name}</h1>
-            <p className="mt-2 text-muted-foreground italic">{product.tagline}</p>
-            <div className="mt-6 text-2xl tabular-nums">₹{product.price}</div>
-            <p className="mt-6 text-sm leading-relaxed text-ink/80 max-w-md">
+            <h1
+              className="mt-2 font-display text-4xl md:text-5xl"
+              style={{ color: "var(--foreground)" }}
+            >
+              {product.name}
+            </h1>
+            <p className="mt-2 italic text-muted-foreground">{product.tagline}</p>
+            <div
+              className="mt-6 text-2xl tabular-nums"
+              style={{ color: "var(--foreground)" }}
+            >
+              ₹{product.price}
+            </div>
+            <p
+              className="mt-6 text-sm leading-relaxed max-w-md"
+              style={{ color: "var(--muted-foreground)" }}
+            >
               {product.description}
             </p>
 
+            {/* Qty + Add to cart */}
             <div className="mt-10 flex items-center gap-4">
-              <div className="flex items-center border border-ink/30 rounded-full">
+              <div
+                className="flex items-center border rounded-full"
+                style={{ borderColor: "var(--border)" }}
+              >
                 <button
                   onClick={() => setQty((q) => Math.max(1, q - 1))}
                   className="px-3 py-2 hover:opacity-60"
                   aria-label="Decrease"
+                  style={{ color: "var(--foreground)" }}
                 >
                   <Minus className="h-3 w-3" />
                 </button>
-                <span className="px-3 text-sm tabular-nums w-8 text-center">{qty}</span>
+                <span
+                  className="px-3 text-sm tabular-nums w-8 text-center"
+                  style={{ color: "var(--foreground)" }}
+                >
+                  {qty}
+                </span>
                 <button
                   onClick={() => setQty((q) => q + 1)}
                   className="px-3 py-2 hover:opacity-60"
                   aria-label="Increase"
+                  style={{ color: "var(--foreground)" }}
                 >
                   <Plus className="h-3 w-3" />
                 </button>
               </div>
               <button
                 onClick={() => cartStore.add(product.id, qty)}
-                className="flex-1 rounded-full bg-ink text-cream text-[11px] tracking-[0.3em] uppercase py-3.5 hover:bg-ink/90 transition-colors"
+                className="flex-1 rounded-full text-[11px] tracking-[0.3em] uppercase py-3.5 hover:opacity-90 transition-opacity"
+                style={{ backgroundColor: "var(--foreground)", color: "var(--background)" }}
               >
                 Add to cart — ₹{product.price * qty}
               </button>
             </div>
 
-            <div className="mt-12 border-t border-border">
+            {/* Accordion */}
+            <div className="mt-12 border-t" style={{ borderColor: "var(--border)" }}>
               <Accordion
                 open={openAcc === "benefits"}
                 onToggle={() => setOpenAcc(openAcc === "benefits" ? null : "benefits")}
                 title="Benefits"
               >
-                <ul className="space-y-2 text-sm text-ink/80">
+                <ul className="space-y-2 text-sm">
                   {product.benefits.map((b) => (
-                    <li key={b} className="flex gap-3">
+                    <li key={b} className="flex gap-3" style={{ color: "var(--muted-foreground)" }}>
                       <span className="text-blush">✦</span>
                       {b}
                     </li>
@@ -148,7 +191,10 @@ function ProductDetail() {
                 onToggle={() => setOpenAcc(openAcc === "how" ? null : "how")}
                 title="How to use"
               >
-                <ol className="space-y-2 text-sm text-ink/80 list-decimal list-inside">
+                <ol
+                  className="space-y-2 text-sm list-decimal list-inside"
+                  style={{ color: "var(--muted-foreground)" }}
+                >
                   {product.howToUse.map((h) => (
                     <li key={h}>{h}</li>
                   ))}
@@ -159,7 +205,12 @@ function ProductDetail() {
                 onToggle={() => setOpenAcc(openAcc === "ing" ? null : "ing")}
                 title="Ingredients"
               >
-                <p className="text-sm text-ink/80 leading-relaxed">{product.ingredients}</p>
+                <p
+                  className="text-sm leading-relaxed"
+                  style={{ color: "var(--muted-foreground)" }}
+                >
+                  {product.ingredients}
+                </p>
               </Accordion>
             </div>
           </div>
@@ -172,7 +223,9 @@ function ProductDetail() {
           <div className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground mb-2">
             You may also love
           </div>
-          <h2 className="font-display text-3xl md:text-4xl">Pair the ritual</h2>
+          <h2 className="font-display text-3xl md:text-4xl" style={{ color: "var(--foreground)" }}>
+            Pair the ritual
+          </h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12">
           {related.map((p) => (
@@ -196,14 +249,20 @@ function Accordion({
   children: React.ReactNode;
 }) {
   return (
-    <div className="border-b border-border">
+    <div className="border-b" style={{ borderColor: "var(--border)" }}>
       <button
         onClick={onToggle}
         className="w-full flex items-center justify-between py-5 text-left"
       >
-        <span className="text-[11px] tracking-[0.3em] uppercase">{title}</span>
+        <span
+          className="text-[11px] tracking-[0.3em] uppercase"
+          style={{ color: "var(--foreground)" }}
+        >
+          {title}
+        </span>
         <ChevronDown
           className={cn("h-4 w-4 transition-transform", open && "rotate-180")}
+          style={{ color: "var(--foreground)" }}
         />
       </button>
       {open && <div className="pb-6 animate-fade-in">{children}</div>}

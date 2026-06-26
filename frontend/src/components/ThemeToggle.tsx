@@ -25,8 +25,13 @@ export function ThemeToggle() {
       onClick={toggle}
       aria-label="Toggle theme"
       className="hover:opacity-60 transition-opacity"
+      style={{ color: "var(--foreground)" }}
     >
-      {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+      {isDark ? (
+        <Sun className="h-[18px] w-[18px]" />
+      ) : (
+        <Moon className="h-[18px] w-[18px]" />
+      )}
     </button>
   );
 }

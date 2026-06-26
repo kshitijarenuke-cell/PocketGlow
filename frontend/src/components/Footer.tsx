@@ -28,33 +28,43 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-beige mt-32" style={{ color: "#685C54" }}>
+    <footer
+      className="mt-32"
+      style={{ backgroundColor: "var(--footer)", color: "var(--foreground)" }}
+    >
       <div className="mx-auto max-w-7xl px-6 md:px-8 py-20">
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <div className="font-display text-3xl">PocketGlow Essentials</div>
+            <div className="font-display text-3xl" style={{ color: "var(--foreground)" }}>
+              PocketGlow Essentials
+            </div>
             <p className="mt-4 max-w-sm text-sm text-muted-foreground">
               Snap-and-squeeze sachet skincare for routines that travel with you.
             </p>
-            <form
-              onSubmit={handleSubscribe}
-              className="mt-8 max-w-sm"
-            >
-              <label className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground">
+            <form onSubmit={handleSubscribe} className="mt-8 max-w-sm">
+              <label
+                className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground"
+              >
                 Join the list
               </label>
-              <div className="mt-2 flex border-b border-ink/30 focus-within:border-ink">
+              <div
+                className="mt-2 flex border-b focus-within:border-foreground"
+                style={{ borderColor: "var(--border)" }}
+              >
                 <input
                   type="email"
                   required
                   placeholder="Your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="flex-1 bg-transparent py-2 outline-none placeholder:text-ink/40 text-sm"
+                  className="flex-1 bg-transparent py-2 outline-none text-sm"
+                  style={{ color: "var(--foreground)" }}
                 />
                 <button
                   type="submit"
-                  className="text-[10px] tracking-[0.3em] uppercase hover:opacity-60"
+                  disabled={submitting}
+                  className="text-[10px] tracking-[0.3em] uppercase hover:opacity-60 disabled:opacity-40"
+                  style={{ color: "var(--foreground)" }}
                 >
                   Sign up →
                 </button>
@@ -95,7 +105,10 @@ export function Footer() {
           />
         </div>
 
-        <div className="mt-16 flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-t border-ink/15 pt-6 text-[11px] tracking-[0.2em] uppercase text-muted-foreground">
+        <div
+          className="mt-16 flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-t pt-6 text-[11px] tracking-[0.2em] uppercase text-muted-foreground"
+          style={{ borderColor: "var(--border)" }}
+        >
           <div>© {new Date().getFullYear()} PocketGlow Essentials</div>
           <div className="flex gap-6">
             <span>Privacy</span>
@@ -123,7 +136,11 @@ function FooterCol({
       <ul className="space-y-3 text-sm">
         {links.map((l) => (
           <li key={l.label}>
-            <Link to={l.to} className="hover:underline">
+            <Link
+              to={l.to}
+              className="hover:underline"
+              style={{ color: "var(--foreground)" }}
+            >
               {l.label}
             </Link>
           </li>

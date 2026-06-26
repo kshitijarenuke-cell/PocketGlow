@@ -11,39 +11,62 @@ export function Navbar(_: { transparentOnTop?: boolean } = {}) {
 
   return (
     <header
-      className="sticky top-0 z-50 border-b text-foreground"
-      style={{ backgroundColor: "var(--navbar)" }}
+      className="sticky top-0 z-50 border-b"
+      style={{ backgroundColor: "var(--navbar)", color: "var(--foreground)" }}
     >
-      <nav className="relative mx-auto max-w-7xl px-6 md:px-8 h-[76px] grid grid-cols-3 items-center">
-        <div className="flex items-center gap-7 text-[11px] tracking-[0.3em] uppercase">
+      <nav className="relative mx-auto max-w-7xl px-6 md:px-8 h-[80px] grid grid-cols-3 items-center">
+        {/* Left — nav links */}
+        <div className="flex items-center gap-8 text-[13px] tracking-[0.28em] uppercase font-medium">
           <button
             onMouseEnter={() => setMegaOpen(true)}
             onClick={() => setMegaOpen((v) => !v)}
             className="hover:opacity-60 transition-opacity"
+            style={{ color: "var(--foreground)" }}
           >
             Shop
           </button>
-          <Link to="/about" className="hover:opacity-60 transition-opacity">
+          <Link
+            to="/about"
+            className="hover:opacity-60 transition-opacity"
+            style={{ color: "var(--foreground)" }}
+          >
             About
           </Link>
         </div>
 
+        {/* Centre — wordmark */}
         <Link
           to="/"
           className="justify-self-center font-display text-2xl md:text-[28px] tracking-tight"
+          style={{ color: "var(--foreground)" }}
         >
           PocketGlow Essentials
         </Link>
 
+        {/* Right — icons */}
         <div className="justify-self-end flex items-center gap-5">
-          <button aria-label="Search" className="hover:opacity-60 hidden sm:block">
-            <Search className="h-4 w-4" />
+          <button
+            aria-label="Search"
+            className="hover:opacity-60 transition-opacity hidden sm:block"
+            style={{ color: "var(--foreground)" }}
+          >
+            <Search className="h-[18px] w-[18px]" />
           </button>
-          <Link to="/login" aria-label="Account" className="hover:opacity-60 hidden sm:block">
-            <User className="h-4 w-4" />
+          <Link
+            to="/login"
+            aria-label="Account"
+            className="hover:opacity-60 transition-opacity hidden sm:block"
+            style={{ color: "var(--foreground)" }}
+          >
+            <User className="h-[18px] w-[18px]" />
           </Link>
-          <Link to="/cart" aria-label="Cart" className="relative flex items-center gap-2 hover:opacity-60">
-            <ShoppingBag className="h-4 w-4" />
+          <Link
+            to="/cart"
+            aria-label="Cart"
+            className="relative flex items-center gap-2 hover:opacity-60 transition-opacity"
+            style={{ color: "var(--foreground)" }}
+          >
+            <ShoppingBag className="h-[18px] w-[18px]" />
             {count > 0 && (
               <span className="absolute -right-3 -top-2 grid h-4 min-w-4 place-items-center rounded-full bg-primary px-1 text-[9px] text-primary-foreground">
                 {count}

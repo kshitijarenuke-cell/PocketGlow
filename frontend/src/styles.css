@@ -95,13 +95,16 @@
 .dark {
   --burgundy: #4A0F1F;
   --wine: #7A1027;
-  --blush: #B9867F;
+  --blush: #C49A94;
   --champagne: #DDB8AE;
   --ivory: #F6F0EB;
-  --cream: #F6F0EB;
-  --beige: #4A0F1F;
+  /* In dark mode: --ink becomes the light foreground so text-ink renders as light text */
+  --ink: #F0EAE4;
+  /* In dark mode: --cream becomes the dark background so bg-cream / text-cream work */
+  --cream: #0B0B0B;
+  /* In dark mode: --beige becomes a dark card tone */
+  --beige: #1A1212;
   --nude: #181818;
-  --ink: #0B0B0B;
 
   --background: #0B0B0B;
   --foreground: #F6F0EB;
@@ -115,19 +118,19 @@
   --primary-foreground: #FFFFFF;
   --secondary: #4A0F1F;
   --secondary-foreground: #F6F0EB;
-  --muted: #151515;
-  --muted-foreground: #B9867F;
+  --muted: #1E1E1E;
+  --muted-foreground: #B9A09A;
   --accent: #4A0F1F;
   --accent-foreground: #DDB8AE;
   --destructive: #7A1027;
   --destructive-foreground: #FFFFFF;
-  --border: rgba(221,184,174,0.18);
+  --border: rgba(221,184,174,0.15);
   --input: #151515;
   --ring: #DDB8AE;
 
   --navbar: #0B0B0B;
   --section: #151515;
-  --footer: #12070A;
+  --footer: #0F0709;
   --link: #DDB8AE;
   --text-secondary: #DDB8AE;
 }
